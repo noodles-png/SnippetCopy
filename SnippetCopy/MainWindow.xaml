@@ -7,6 +7,21 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width = "200"/>
+            <ColumnDefinition Width = "*"/>
+        </Grid.ColumnDefinitions>
+        
+        <StackPanel Grid.Column="0">
+            <ListBox x:Name="snippetList" DisplayMemberPath="Name" SelectionChanged="SnippetList_SelectionChanged"/> 
+            <Button Content="New Snippet" Click="New_Click"/>
+            <Button Content="Copy Snippet" Click="Copy_Click"/>
+        </StackPanel>
+        <TextBlock Grid.Column="1" x:Name="Preview" Text="Choose a Snippet"/>
+        <StackPanel Grid.Column="1" x:Name="newPanel" Visibility="Collapsed">
+            <TextBox x:Name="newName"/>
+            <TextBox x:Name="newContent"/>
+            <Button Content="Save" Click="Save_Click"/>
+        </StackPanel>
     </Grid>
 </Window>
