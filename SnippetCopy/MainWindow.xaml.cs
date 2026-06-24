@@ -73,4 +73,14 @@ public partial class MainWindow : Window
         newContent.Text = "";
         newPanel.Visibility = Visibility.Collapsed;
     }
+
+    private void Delete_Click(object sender, RoutedEventArgs e)
+    {
+        Snippet selected = snippetList.SelectedItem as Snippet;
+
+        if (selected != null)
+        {
+            snippets.Remove(selected);
+        }
+    }
 }
