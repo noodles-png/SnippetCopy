@@ -16,7 +16,7 @@
             <ListBox x:Name="snippetList" DisplayMemberPath="Name" SelectionChanged="SnippetList_SelectionChanged"/> 
             <Button Content="Copy Snippet" Click="Copy_Click" Height="35" Margin="0,5,0,5"/>
             <Button Content="New Snippet" Click="New_Click"/>
-            <Button Content="Edit Snippet" />
+            <Button Content="Edit Snippet" Click="Edit_Click"/>
             <Button Content="Delete Snippet" Click="Delete_Click" Background="DarkRed"/>
         </StackPanel>
         <TextBlock Grid.Column="1" x:Name="Preview" Text="Choose a Snippet"/>

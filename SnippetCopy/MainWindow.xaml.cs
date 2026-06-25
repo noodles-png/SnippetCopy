@@ -9,7 +9,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using SnippetCopy.Models;
-using System.Collections.ObjectModel; // needed for ObservableCollection
+using System.Collections.ObjectModel;
+using System.IO;
+using System.Text.Json; // needed for ObservableCollection
 
 namespace SnippetCopy;
 
@@ -20,16 +22,23 @@ public partial class MainWindow : Window
 {
     // All temporary Snippet templates
     private ObservableCollection<Snippet> snippets; // Observable Collection instead of List -> updates the UI automatically
+    
+    private string savePath = "snippets.json";
+    
     public MainWindow()
     {
         InitializeComponent();
-        
-        snippets = new ObservableCollection<Snippet>
-        {
-            new Snippet { Name = "README", Content = "# Projektname\n\nBeschreibung..." }, // ToDo: Create List via JSON
-            new Snippet { Name = "Gitignore", Content = "bin/\nobj/\n*.user" },
-        };
 
+        if (File.Exists(savePath))
+        {
+            LoadSnippets();
+        }
+        else
+        {
+            snippets = new ObservableCollection<Snippet>();
+            SaveSnippets();
+        }
+        
         snippetList.ItemsSource = snippets;
     }
     
@@ -72,8 +81,24 @@ public partial class MainWindow : Window
         newName.Text = "";
         newContent.Text = "";
         newPanel.Visibility = Visibility.Collapsed;
+        SaveSnippets();
     }
+    
+    private Snippet editSnippet;
 
+    private void Edit_Click(object sender, RoutedEventArgs e)
+    {
+        Snippet selected = snippetList.SelectedItem as Snippet;
+
+        if (selected != null)
+        {
+            editSnippet = selected;
+            newName.Text = selected.Name;
+            newContent.Text = selected.Content;
+            newPanel.Visibility = Visibility.Visible;
+        }
+    }
+    
     private void Delete_Click(object sender, RoutedEventArgs e)
     {
         Snippet selected = snippetList.SelectedItem as Snippet;
@@ -81,6 +106,28 @@ public partial class MainWindow : Window
         if (selected != null)
         {
             snippets.Remove(selected);
+            SaveSnippets();
+        }
+    }
+    
+    // Adds new snippet to JSON database
+    private void SaveSnippets()
+    {
+        string json = JsonSerializer.Serialize(snippets);
+        File.WriteAllText(savePath, json);
+    }
+    
+    // Loads existing snippet
+    private void LoadSnippets()
+    {
+        if (File.Exists(savePath))
+        {
+            string json = File.ReadAllText(savePath);
+            var loaded =  JsonSerializer.Deserialize<ObservableCollection<Snippet>>(json);
+            if (loaded != null)
+            {
+                snippets = loaded;
+            }
         }
     }
 }
