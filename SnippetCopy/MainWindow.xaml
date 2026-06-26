@@ -22,7 +22,7 @@
         <TextBlock Grid.Column="1" x:Name="Preview" Text="Choose a Snippet"/>
         <StackPanel Grid.Column="1" x:Name="newPanel" Visibility="Collapsed">
             <TextBox x:Name="newName"/>
-            <TextBox x:Name="newContent"/>
+            <TextBox AcceptsReturn="True" x:Name="newContent"/> 
             <Button Content="Save" Click="Save_Click"/>
         </StackPanel>
     </Grid>
