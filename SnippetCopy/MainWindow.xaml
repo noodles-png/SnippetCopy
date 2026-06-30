@@ -13,16 +13,25 @@
         </Grid.ColumnDefinitions>
         
         <StackPanel Grid.Column="0">
-            <ListBox x:Name="snippetList" DisplayMemberPath="Name" SelectionChanged="SnippetList_SelectionChanged"/> 
+            <ComboBox x:Name="filterCategory" SelectionChanged="Filter_Changed"/>
+            <ListBox x:Name="snippetList" DisplayMemberPath="Name" SelectionChanged="SnippetList_SelectionChanged"/>
+            
             <Button Content="Copy Snippet" Click="Copy_Click" Height="35" Margin="0,5,0,5"/>
             <Button Content="New Snippet" Click="New_Click"/>
             <Button Content="Edit Snippet" Click="Edit_Click"/>
             <Button Content="Delete Snippet" Click="Delete_Click" Background="DarkRed"/>
         </StackPanel>
-        <TextBlock Grid.Column="1" x:Name="Preview" Text="Choose a Snippet"/>
+        <TextBlock Grid.Column="1" x:Name="Preview" Text=""/>
         <StackPanel Grid.Column="1" x:Name="newPanel" Visibility="Collapsed">
+            <TextBlock Text="Name"/>
             <TextBox x:Name="newName"/>
-            <TextBox AcceptsReturn="True" x:Name="newContent"/> 
+            
+            <TextBlock Text="Content"/>
+            <TextBox AcceptsReturn="True" x:Name="newContent" Height="100"/>
+            
+            <TextBlock Text="Category"/>
+            <ComboBox x:Name="newCategory"/>
+            
             <Button Content="Save" Click="Save_Click"/>
         </StackPanel>
     </Grid>

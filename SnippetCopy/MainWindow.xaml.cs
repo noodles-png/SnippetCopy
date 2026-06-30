@@ -40,6 +40,18 @@ public partial class MainWindow : Window
         }
         
         snippetList.ItemsSource = snippets;
+        
+    // ToDO: Change this to user input via GUI
+    filterCategory.Items.Add("All");
+    filterCategory.Items.Add("Git");
+    filterCategory.Items.Add("Document");
+    filterCategory.Items.Add("Code");
+    filterCategory.SelectedIndex = 0;
+    
+    // ToDO: Change this to user input via GUI
+    newCategory.Items.Add("Git");
+    newCategory.Items.Add("Document");
+    newCategory.Items.Add("Code");
     }
     
     // Copy button
@@ -71,15 +83,28 @@ public partial class MainWindow : Window
 
     private void Save_Click(object sender, RoutedEventArgs e)
     {
-        Snippet newSnippet = new Snippet
+        if (editSnippet != null)
         {
-            Name = newName.Text,
-            Content = newContent.Text
-        };
-        snippets.Add(newSnippet);
+            editSnippet.Name = newName.Text;
+            editSnippet.Content = newContent.Text;
+            editSnippet.Category = newCategory.SelectedItem as string;
+            editSnippet = null;
+        }
+        else
+        {
+            Snippet newSnippet = new Snippet
+                    {
+                        Name = newName.Text,
+                        Content = newContent.Text,
+                        Category = newCategory.SelectedItem as string
+                    };
+                    snippets.Add(newSnippet);
+        }
+        
 
         newName.Text = "";
         newContent.Text = "";
+        newCategory.SelectedIndex = -1;
         newPanel.Visibility = Visibility.Collapsed;
         SaveSnippets();
     }
@@ -95,6 +120,7 @@ public partial class MainWindow : Window
             editSnippet = selected;
             newName.Text = selected.Name;
             newContent.Text = selected.Content;
+            newCategory.SelectedItem = selected.Category;
             newPanel.Visibility = Visibility.Visible;
         }
     }
@@ -128,6 +154,20 @@ public partial class MainWindow : Window
             {
                 snippets = loaded;
             }
+        }
+    }
+    
+    private void Filter_Changed(object sender, SelectionChangedEventArgs e)
+    {
+        string category = filterCategory.SelectedItem as string;
+
+        if (category == "All")
+        {
+            snippetList.ItemsSource = snippets;
+        }
+        else
+        {
+            snippetList.ItemsSource = snippets.Where(s => s.Category == category).ToList();
         }
     }
 }
