@@ -67,6 +67,11 @@ public partial class MainWindow : Window
 
     private void New_Click(object sender, RoutedEventArgs e)
     {
+        editSnippet = null;
+        newName.Text = "";
+        newContent.Text = "";
+        newCategory.SelectedIndex = -1;
+        Preview.Visibility = Visibility.Collapsed;
         newPanel.Visibility = Visibility.Visible;
     }
 
@@ -94,6 +99,7 @@ public partial class MainWindow : Window
         newName.Text = "";
         newContent.Text = "";
         newCategory.SelectedIndex = -1;
+        Preview.Visibility = Visibility.Visible;
         newPanel.Visibility = Visibility.Collapsed;
         SaveSnippets();
         UpdateCategories();
@@ -111,6 +117,7 @@ public partial class MainWindow : Window
             newName.Text = selected.Name;
             newContent.Text = selected.Content;
             newCategory.SelectedItem = selected.Category;
+            Preview.Visibility = Visibility.Collapsed;
             newPanel.Visibility = Visibility.Visible;
         }
     }
@@ -118,12 +125,17 @@ public partial class MainWindow : Window
     private void Delete_Click(object sender, RoutedEventArgs e)
     {
         Snippet selected = snippetList.SelectedItem as Snippet;
-
+        
         if (selected != null)
         {
-            snippets.Remove(selected);
-            SaveSnippets();
-            UpdateCategories();
+            var result = MessageBox.Show("Do you really want to delete?", "Delete", MessageBoxButton.YesNo);
+            if (result == MessageBoxResult.Yes)
+            {
+                snippets.Remove(selected);
+                Preview.Visibility = Visibility.Collapsed;
+                SaveSnippets();
+                UpdateCategories(); 
+            }
         }
     }
     
