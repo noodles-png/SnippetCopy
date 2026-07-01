@@ -30,7 +30,7 @@
             <TextBox AcceptsReturn="True" x:Name="newContent" Height="100"/>
             
             <TextBlock Text="Category"/>
-            <ComboBox x:Name="newCategory"/>
+            <ComboBox x:Name="newCategory" IsEditable="True"/>
             
             <Button Content="Save" Click="Save_Click"/>
         </StackPanel>

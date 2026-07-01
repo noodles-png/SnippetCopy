@@ -41,17 +41,6 @@ public partial class MainWindow : Window
         
         snippetList.ItemsSource = snippets;
         
-    // ToDO: Change this to user input via GUI
-    filterCategory.Items.Add("All");
-    filterCategory.Items.Add("Git");
-    filterCategory.Items.Add("Document");
-    filterCategory.Items.Add("Code");
-    filterCategory.SelectedIndex = 0;
-    
-    // ToDO: Change this to user input via GUI
-    newCategory.Items.Add("Git");
-    newCategory.Items.Add("Document");
-    newCategory.Items.Add("Code");
     }
     
     // Copy button
@@ -107,6 +96,7 @@ public partial class MainWindow : Window
         newCategory.SelectedIndex = -1;
         newPanel.Visibility = Visibility.Collapsed;
         SaveSnippets();
+        UpdateCategories();
     }
     
     private Snippet editSnippet;
@@ -133,6 +123,7 @@ public partial class MainWindow : Window
         {
             snippets.Remove(selected);
             SaveSnippets();
+            UpdateCategories();
         }
     }
     
@@ -157,6 +148,7 @@ public partial class MainWindow : Window
         }
     }
     
+    // Segments the snippets into categories
     private void Filter_Changed(object sender, SelectionChangedEventArgs e)
     {
         string category = filterCategory.SelectedItem as string;
@@ -168,6 +160,25 @@ public partial class MainWindow : Window
         else
         {
             snippetList.ItemsSource = snippets.Where(s => s.Category == category).ToList();
+        }
+    }
+    
+    private void UpdateCategories()
+    {
+        var categories = snippets.Select(s => s.Category).Distinct().ToList(); // .Distinct to avoid duplicates
+        
+        filterCategory.Items.Clear();
+        filterCategory.Items.Add("All");
+        foreach (string cat in categories)
+        {
+            filterCategory.Items.Add(cat);
+        }
+        filterCategory.SelectedIndex = 0;
+
+        newCategory.Items.Clear();
+        foreach (string cat in categories)
+        {
+            newCategory.Items.Add(cat);
         }
     }
 }
