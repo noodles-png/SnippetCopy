@@ -1,17 +1,7 @@
-﻿using System.Text;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using SnippetCopy.Models;
 using System.Collections.ObjectModel;
-using System.IO;
-using System.Text.Json; // needed for ObservableCollection
 using Microsoft.Data.Sqlite;
 
 namespace SnippetCopy;
@@ -58,8 +48,6 @@ public partial class MainWindow : Window
     /// <summary>
     /// Logic for the copy function via button click with confirmation
     /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
     private async void Copy_Click(object sender, RoutedEventArgs e) // WPF needs sender and e, await only with async
     {
         Snippet selected = snippetList.SelectedItem as Snippet;
@@ -74,7 +62,6 @@ public partial class MainWindow : Window
             button.Content = "Copy";
         }
     }
-
    
     /// <summary>
     /// Displays the content of the selected snippet in the preview panel.
@@ -95,8 +82,6 @@ public partial class MainWindow : Window
     /// <summary>
     /// Opens a panel to create a new snippet
     /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
     private void New_Click(object sender, RoutedEventArgs e)
     {
         snippetList.SelectedIndex = -1;
@@ -111,8 +96,6 @@ public partial class MainWindow : Window
     /// <summary>
     /// Saves the input the user gives in the panel to the SQL database
     /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
     private void Save_Click(object sender, RoutedEventArgs e)
     {
         if (editSnippet != null)
@@ -153,8 +136,6 @@ public partial class MainWindow : Window
     /// <summary>
     /// Updates existing snippets with new values
     /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
     private void Edit_Click(object sender, RoutedEventArgs e)
     {
         Snippet selected = snippetList.SelectedItem as Snippet;
@@ -200,7 +181,8 @@ public partial class MainWindow : Window
         connection.Open();
         
         var command = connection.CreateCommand();
-        command.CommandText = @"INSERT INTO Snippets (Name, Content, Category) VALUES (@name, @content, @category)";
+        command.CommandText = @"INSERT INTO Snippets (Name, Content, Category) VALUES (@name, @content, @category);
+                                SELECT last_insert_rowid();";
         command.Parameters.AddWithValue("@name", snippet.Name);
         command.Parameters.AddWithValue("@content", snippet.Content);
         command.Parameters.AddWithValue("@category", snippet.Category);
@@ -235,9 +217,9 @@ public partial class MainWindow : Window
                                 SET Name = $Name, Content = $Content, Category = $Category 
                                 WHERE Id = $id";
         command.Parameters.AddWithValue("$id", snippet.Id);
-        command.Parameters.AddWithValue("$name", snippet.Name);
-        command.Parameters.AddWithValue("$content", snippet.Content);
-        command.Parameters.AddWithValue("$category", snippet.Category);
+        command.Parameters.AddWithValue("$Name", snippet.Name);
+        command.Parameters.AddWithValue("$Content", snippet.Content);
+        command.Parameters.AddWithValue("$Category", snippet.Category);
         command.ExecuteNonQuery();
     }
     
