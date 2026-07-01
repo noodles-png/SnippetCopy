@@ -1,9 +1,16 @@
 {
   "version": 2,
-  "dgSpecHash": "9zlKQFyuWjg=",
+  "dgSpecHash": "F5KoSVQPbA4=",
   "success": true,
   "projectFilePath": "C:\\Users\\PatrickCarillo\\RiderProjects\\SnippetCopy\\SnippetCopy\\SnippetCopy.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\PatrickCarillo\\.nuget\\packages\\microsoft.data.sqlite\\11.0.0-preview.5.26302.115\\microsoft.data.sqlite.11.0.0-preview.5.26302.115.nupkg.sha512",
+    "C:\\Users\\PatrickCarillo\\.nuget\\packages\\microsoft.data.sqlite.core\\11.0.0-preview.5.26302.115\\microsoft.data.sqlite.core.11.0.0-preview.5.26302.115.nupkg.sha512",
+    "C:\\Users\\PatrickCarillo\\.nuget\\packages\\sourcegear.sqlite3\\3.50.4.5\\sourcegear.sqlite3.3.50.4.5.nupkg.sha512",
+    "C:\\Users\\PatrickCarillo\\.nuget\\packages\\sqlitepclraw.bundle_e_sqlite3\\3.0.3\\sqlitepclraw.bundle_e_sqlite3.3.0.3.nupkg.sha512",
+    "C:\\Users\\PatrickCarillo\\.nuget\\packages\\sqlitepclraw.config.e_sqlite3\\3.0.3\\sqlitepclraw.config.e_sqlite3.3.0.3.nupkg.sha512",
+    "C:\\Users\\PatrickCarillo\\.nuget\\packages\\sqlitepclraw.core\\3.0.3\\sqlitepclraw.core.3.0.3.nupkg.sha512",
+    "C:\\Users\\PatrickCarillo\\.nuget\\packages\\sqlitepclraw.provider.e_sqlite3\\3.0.3\\sqlitepclraw.provider.e_sqlite3.3.0.3.nupkg.sha512",
     "C:\\Users\\PatrickCarillo\\.nuget\\packages\\microsoft.netcore.app.ref\\8.0.28\\microsoft.netcore.app.ref.8.0.28.nupkg.sha512",
     "C:\\Users\\PatrickCarillo\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\8.0.28\\microsoft.windowsdesktop.app.ref.8.0.28.nupkg.sha512",
     "C:\\Users\\PatrickCarillo\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\8.0.28\\microsoft.aspnetcore.app.ref.8.0.28.nupkg.sha512",

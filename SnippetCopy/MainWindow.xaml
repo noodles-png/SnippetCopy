@@ -17,9 +17,12 @@
         <StackPanel Grid.Column="0" Margin="0,0,10,0">
             <TextBlock Text="Categories" FontSize="12" Margin="0,0,0,3"/>
             <ComboBox x:Name="filterCategory" SelectionChanged="Filter_Changed"/>
+            
+            <TextBox x:Name="searchBox" TextChanged="Search_Changed" Margin="0,0,0,8" Padding="5,3"/>
+            
             <ListBox x:Name="snippetList" DisplayMemberPath="Name" 
                      SelectionChanged="SnippetList_SelectionChanged"
-                     Height="280" Margin="0,0,0,10"
+                     Height="240" Margin="0,0,0,10"
                      Background="#2D2D2D" Foreground="WhiteSmoke"/>
             
             <Button Content="Copy" Click="Copy_Click" Height="42" Margin="0,0,0,4"
